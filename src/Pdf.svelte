@@ -5,6 +5,14 @@
 
   export let url: string;
 
+  // Icons
+  const prev_icon =
+    "https://fonts.gstatic.com/s/i/materialiconsround/arrow_back/v13/24px.svg";
+  const next_icon =
+    "https://fonts.gstatic.com/s/i/materialiconsround/arrow_forward/v13/24px.svg";
+  const full_icon =
+    "https://fonts.gstatic.com/s/i/materialiconsround/fullscreen/v12/24px.svg";
+
   // let canvas: HTMLCanvasElement;
   let canvas_holder: HTMLElement;
   let pageNo: number;
@@ -13,8 +21,6 @@
   let n: number = 1;
   let loading: boolean = false;
   let style: string = "";
-
-  let _render: any;
 
   onMount(() => {
     function renderPage(page) {
@@ -82,20 +88,25 @@
 </script>
 
 {#if loading}
-  <img src="/assets/loading.gif" alt="Checking" width="100px" />
+  <p class="loading">loading ...</p>
 {/if}
 <div class="pdf-viewer" style={"--page-width: " + width + "px"}>
   {#if pageNo}
     <div class="control">
       <button on:click={prev} disabled={loading || n === 1}>
-        <img src="/assets/prev.svg" alt="previous page" title="previous page" width="24px" />
+        <img
+          src={prev_icon}
+          alt="previous page"
+          title="previous page"
+          width="24px"
+        />
       </button>
       <p>page {n} from {pageNo}</p>
       <button on:click={next} disabled={loading || pageNo === n}>
-        <img src="/assets/next.svg" alt="next page" title="next page" width="24px" />
+        <img src={next_icon} alt="next page" title="next page" width="24px" />
       </button>
       <button on:click={full} disabled={loading}>
-        <img src="/assets/full.svg" alt="full page" title="full page" width="24px" />
+        <img src={full_icon} alt="full page" title="full page" width="24px" />
       </button>
     </div>
   {/if}
@@ -108,6 +119,10 @@
 </div>
 
 <style>
+  .loading {
+    text-align: center;
+  }
+
   .canvas_holder {
     position: relative;
     right: 0;
